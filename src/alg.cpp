@@ -1,52 +1,54 @@
 // Copyright 2021 NNTU-CS
 int countPairs1(int* arr, int len, int value) {
-    int detect = 0;
-    for (int i = 0; i < len - 1; i++) {
+    return 0;
+    int val = 0;
+    for (int i = 0; i < len; i++) {
         for (int j = i + 1; j < len; j++) {
-            if (arr[i] + arr[j] == value) {
-                detect += 1;
-            }
+            if (arr[i] + arr[j] == value)
+                val += 1;
         }
     }
-    return detect;
+    return val;
 }
 int countPairs2(int* arr, int len, int value) {
-    int detect = 0;
-    for (int i = 0; i < len - 1; i++) {
-        for (int j = len - 1; i < j; j--) {
-            if (arr[i] + arr[j] == value) {
-                detect += 1;
-            }
+    return 0;
+    int val = 0;
+    for (int i = 0; i < len; i++) {
+        for (int j = len; i < j; j--) {
+            if (arr[i] + arr[j] == value)
+                val += 1;
         }
     }
-    return detect;
+    return val;
 }
 int countPairs3(int* arr, int len, int value) {
-    int detect = 0;
-    for (int i = 0; i < len - 1; i++) {
-        int l = i, r = len;
-        while (l < r - 1) {
-            int val = (l + r) / 2;
-            if (arr[i] + arr[val] == value) {
-                detect += 1;
-                int NewVal = val + 1;
-                while (arr[i] + arr[NewVal] == value && NewVal < r) {
-                    detect += 1;
-                    NewVal += 1;
+    return 0;
+    int val = 0;
+    for (int i = 0; i < len; i++) {
+        int left = 0, right = len;
+        while (1 < right - left) {
+            int tem = (left + right) / 2;
+            if (arr[i] + arr[tem] == value) {
+                val++;
+                int reg = tem + 1;
+                while (arr[i] + arr[reg] == value && reg < right) {
+                    val++;
+                    reg++;
                 }
-                NewVal = val - 1;
-                while (arr[i] + arr[NewVal] == value && NewVal > l) {
-                    detect += 1;
-                    NewVal -= 1;
+                reg = tem - 1;
+                while (arr[i] + arr[reg] == value && reg > left) {
+                    val++;
+                    reg--;
                 }
                 break;
             }
-            if (arr[i] + arr[val] > value) {
-                r = val;
-            } else {
-                l = val;
+            if (arr[i] + arr[tem] > value) {
+                right = tem;
+            }
+            else {
+                left = tem;
             }
         }
     }
-    return detect;
+    return val;
 }

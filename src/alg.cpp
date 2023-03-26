@@ -1,33 +1,32 @@
 // Copyright 2021 NNTU-CS
 int SearchBin(int* arr, int left, int right, int value) {
     int anyu = 0;
-    int middle = 0;
-    int temp = 0;
-    while (right - left > 1) {
-        middle = (left + right) / 2;
+    while (left <= right) {
+        int middle = (left + right) / 2;
         if (arr[middle] == value) {
-            anyu = anyu + 1;
-            temp = middle + 1;
-            while (arr[temp] == value && temp < right) {
-                anyu = anyu + 1;
-                temp = temp + 1;
+            anyu++;
+            int temp = middle - 1;
+            while (temp >= left && arr[temp] == value) {
+                anyu++;
+                temp--;
             }
-            temp = middle - 1;
-            while (arr[temp] == value && temp > left) {
-                anyu = anyu + 1;
-                temp = temp - 1;
+            temp = middle + 1;
+            while (temp <= right && arr[temp] == value) {
+                anyu++;
+                temp++;
             }
             break;
         }
         if (arr[middle] < value) {
-            left = middle;
+            left = middle + 1;
         }
         if (arr[middle] > value) {
-            right = middle;
+            right = middle - 1;
         }
     }
     return anyu;
 }
+
 int countPairs1(int* arr, int len, int value) {
     int anyu = 0;
     for (int i = 0; i < len; ++i) {
